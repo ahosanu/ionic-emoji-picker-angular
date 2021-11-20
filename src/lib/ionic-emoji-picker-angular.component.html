@@ -1,0 +1,124 @@
+<super-tabs [style]="height">
+  <super-tabs-toolbar slot="top" [color]="color">
+    <super-tab-button *ngIf="recentOld.length > 0">
+      <ion-icon name="time-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="happy-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="fast-food-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="flower-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="football-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="bicycle-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="fitness-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="flag-outline"></ion-icon>
+    </super-tab-button>
+    <super-tab-button>
+      <ion-icon name="flask-outline"></ion-icon>
+    </super-tab-button>
+
+  </super-tabs-toolbar>
+  <super-tabs-container>
+    <super-tab *ngIf="recentOld.length > 0">
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of recentOld" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of smileys" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of foods" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of animals" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of activities" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of travel" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of symbols" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of flag" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+    <super-tab>
+      <ion-content [color]="color">
+        <ul>
+          <li *ngFor="let item of objects" class="ion-activatable ripple-parent" (click)="getEmoji(item)">
+            {{item.emoji}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </li>
+        </ul>
+      </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>

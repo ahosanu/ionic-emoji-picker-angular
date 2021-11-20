@@ -1,0 +1,52 @@
+super-tabs{
+  height: 0;
+  transition: height 100ms;
+}
+super-tab {
+  overflow: auto;
+  ion-content {
+    overflow: auto;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      li {
+        font-size: 30px;
+        text-align: center;
+        width: calc(100%/9);
+        height: 38px;
+      }
+    }
+  }
+}
+
+// swiper bundle styles
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+super-tabs-toolbar{
+  padding: 0;
+}
+
+super-tabs-toolbar{
+  super-tab-button{
+    --st-icon-size: 18px;
+    min-width: 14px;
+    padding: 0 11px;
+    min-height: 33px;
+    height: 24px;
+    ion-icon{
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+    }
+  }
+  &:after{
+    content: none;
+  }
+}
