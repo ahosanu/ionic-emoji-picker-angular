@@ -5,10 +5,10 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 ##Installation
 ### Install the module via NPM
 ```shell
-npm i @wiexon/ionic-emoji-picker-angular
+npm i ionic-emoji-picker-angular
 ```
-
-
+![](https://raw.githubusercontent.com/ahosanu/ionic-emoji-picker-angular/main/Screenshot_1.png)
+![](https://raw.githubusercontent.com/ahosanu/ionic-emoji-picker-angular/main/Screenshot_2.png)
 
 ##Import it in your app's module(s)
 

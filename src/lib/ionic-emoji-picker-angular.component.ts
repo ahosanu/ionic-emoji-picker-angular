@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {IonicEmojiPickerAngularService} from "./ionic-emoji-picker-angular.service";
-import {Storage} from '@ionic/storage-angular';
 
 @Component({
   selector: 'ionic-emoji-picker-angular',
   templateUrl: './ionic-emoji-picker-angular.component.html',
   styleUrls: ['./ionic-emoji-picker-angular.component.scss'],
 })
-export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
+export class IonicEmojiPickerAngularComponent implements OnChanges, AfterViewInit {
 
   smileys: any = [];
   animals: any = [];
@@ -18,6 +17,7 @@ export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
   symbols: any = [];
   flag: any = [];
   recent: any = [];
+  recentChange: boolean = true;
   @Input("color") color?: string;
   @Input("hide") hide: boolean = false;
   @Input("height") getHeight: string = "184px";
@@ -25,7 +25,22 @@ export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
   height: string = "height:" + this.getHeight;
   recentOld: any = [];
   initData: boolean = false;
-  constructor(public loadData: IonicEmojiPickerAngularService, private loadRecent: Storage) {
+
+  constructor(public loadData: IonicEmojiPickerAngularService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.recentOld = this.loadData.recentOld;
+      this.smileys = this.loadData.smileys;
+      this.animals = this.loadData.animals;
+      this.foods = this.loadData.foods;
+      this.travel = this.loadData.travel;
+      this.activities = this.loadData.activities;
+      this.objects = this.loadData.objects;
+      this.symbols = this.loadData.symbols;
+      this.flag = this.loadData.flag;
+    }, 1000);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -33,50 +48,21 @@ export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
       this.height = "height:" + this.getHeight;
     } else {
       this.height = "height: 0px";
-      this.recent = [];
-      if(this.initData)
-        this.loadRecent.get("recent_emoji").then(data => {
-          if (data != null) {
-            setTimeout(()=>{
-              this.recentOld = data;
-            }, 150);
-            data.map(item=>{
-              this.recent.push(item);
-            });
+      if (this.recentChange) {
+        this.loadData.loadRecent.get("recent_emoji").then(data => {
+            this.recentChange = false;
+            if (data != null) {
+              setTimeout(() => {
+                this.recentOld = data;
+              }, 250);
+            }
           }
-        });
+        );
+      }
     }
   }
 
-  async ngOnInit() {
-    await this.loadRecent.create();
-    this.loadData.init().then(() => {
-      setTimeout(() => {
-        this.smileys = this.loadData.emojis.smileys;
-        this.animals = this.loadData.emojis.animals;
-        this.foods = this.loadData.emojis.foods;
-        this.travel = this.loadData.emojis.travel;
-        this.activities = this.loadData.emojis.activities;
-        this.objects = this.loadData.emojis.objects;
-        this.symbols = this.loadData.emojis.symbols;
-        this.flag = this.loadData.emojis.flag;
-      }, 300);
-    });
-    this.loadRecent.get("recent_emoji").then(data => {
-      if (data != null) {
-        this.recentOld = data;
-        data.map(item=>{
-          this.recent.push(item);
-        });
-      }
-    });
-    this.initData = true;
-
-  }
-
-
   getEmoji(item: any) {
-
     let i = this.recent.length - 1;
     while (i >= 0) {
       if (this.recent[i].id === item.id && item.emoji === this.recent[i].emoji)
@@ -85,7 +71,7 @@ export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
     }
 
     if (i < 0) {
-      if (this.recent.length >= 20) {
+      if (this.recent.length >= 35) {
         this.recent.splice(this.recent.length - 1, 1);
       }
       this.recent.splice(0, 0, item);
@@ -93,7 +79,8 @@ export class IonicEmojiPickerAngularComponent implements OnInit, OnChanges {
       this.recent.splice(i, 1);
       this.recent.splice(0, 0, item);
     }
-    this.loadRecent.set("recent_emoji", this.recent).then();
+    this.recentChange = true;
+    this.loadData.loadRecent.set("recent_emoji", this.recent).then();
     this.callbackEmoji.emit(item);
   }
 
